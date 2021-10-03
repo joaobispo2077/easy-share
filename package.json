@@ -9,7 +9,8 @@
     "lint": "next lint",
     "lint:fix": "eslint src/** --fix",
     "style:check": "prettier --check src/**",
-    "style:fix": "prettier --write src/**"
+    "style:fix": "prettier --write src/**",
+    "commit:lint": "lint-staged"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.7",
@@ -32,6 +33,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
     "prettier": "^2.4.0",
     "typescript": "4.4.3"
   }
