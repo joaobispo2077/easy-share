@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "release": "yarn semantic-release --no-ci",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -25,6 +26,8 @@
   "devDependencies": {
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
     "@types/react": "17.0.20",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
@@ -41,6 +44,7 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.4.0",
+    "semantic-release": "^18.0.0",
     "typescript": "4.4.3"
   }
 }
