@@ -10,7 +10,8 @@
     "lint:fix": "eslint src/** --fix",
     "style:check": "prettier --check src/**",
     "style:fix": "prettier --write src/**",
-    "commit:lint": "lint-staged"
+    "commit:lint": "lint-staged",
+    "commit": "yarn git-cz"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.7",
@@ -27,6 +28,8 @@
     "@types/react": "17.0.20",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "eslint-config-prettier": "^8.3.0",
