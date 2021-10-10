@@ -25,6 +25,7 @@ export const Panel = () => {
 
   const [detailLevel, setDetailLevel] = useState<QRCodeDetailLevels>('Q');
   const [qrCodeBackground, setQrCodeBackground] = useState<string>('#00298A');
+  const [qrCodeForeground, setQrCodeForeground] = useState<string>('#FFFFFF');
 
   const downloadAsPng = async () => {
     await import('react-component-export-image').then((Exporter) =>
@@ -56,7 +57,7 @@ export const Panel = () => {
         <QRCode
           value="http://facebook.github.io/react/"
           bgColor={qrCodeBackground}
-          fgColor="#FFFFFF"
+          fgColor={qrCodeForeground}
           renderAs="svg"
           level={detailLevel}
         />
@@ -121,13 +122,24 @@ export const Panel = () => {
                         placeholder="Background"
                         value={qrCodeBackground}
                         onChange={(e) => setQrCodeBackground(e.target.value)}
+                        border="none"
                       />
                     </Text>
                   </Box>
 
                   <Box w="100%" bgColor="primary.500" rounded="lg" p=".25rem">
-                    <Text as="label">Linhas</Text>
-                    <Input type="color" placeholder="Linhas" value="#FFFFFF" />
+                    <Text as="label">
+                      Linhas:
+                      <Input
+                        id="qr-code-foreground"
+                        name="qr-code-foreground"
+                        type="color"
+                        placeholder="Linhas"
+                        value={qrCodeForeground}
+                        onChange={(e) => setQrCodeForeground(e.target.value)}
+                        border="none"
+                      />
+                    </Text>
                   </Box>
                 </VStack>
               </AccordionPanel>
@@ -143,7 +155,7 @@ export const Panel = () => {
             rounded="3xl"
             leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
             padding="1.5rem"
-            onClick={() => downloadAsJpg()}
+            onClick={downloadAsJpg}
           >
             <Text fontWeight="400">JPEG</Text>
           </Button>
@@ -153,7 +165,7 @@ export const Panel = () => {
             rounded="3xl"
             leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
             padding="1.5rem"
-            onClick={() => downloadAsPng()}
+            onClick={downloadAsPng}
           >
             <Text fontWeight="400">PNG</Text>
           </Button>
