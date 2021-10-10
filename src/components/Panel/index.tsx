@@ -24,6 +24,7 @@ export const Panel = () => {
   const qrCodeDetailLevels: QRCodeDetailLevels[] = ['L', 'M', 'Q', 'H'];
 
   const [detailLevel, setDetailLevel] = useState<QRCodeDetailLevels>('Q');
+  const [qrCodeBackground, setQrCodeBackground] = useState<string>('#00298A');
 
   const downloadAsPng = async () => {
     await import('react-component-export-image').then((Exporter) =>
@@ -54,7 +55,7 @@ export const Panel = () => {
       <div ref={qrCodeRef}>
         <QRCode
           value="http://facebook.github.io/react/"
-          bgColor="#00298A"
+          bgColor={qrCodeBackground}
           fgColor="#FFFFFF"
           renderAs="svg"
           level={detailLevel}
@@ -118,7 +119,8 @@ export const Panel = () => {
                         name="qr-code-background"
                         type="color"
                         placeholder="Background"
-                        value="#00298A"
+                        value={qrCodeBackground}
+                        onChange={(e) => setQrCodeBackground(e.target.value)}
                       />
                     </Text>
                   </Box>
