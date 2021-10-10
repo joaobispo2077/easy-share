@@ -14,7 +14,12 @@ export const OptionsBar = () => {
       borderRadius="3rem"
     >
       <Button
+        isActive={true}
         borderRadius="5rem"
+        _active={{
+          bg: 'primary.500',
+          color: 'white',
+        }}
         _hover={{ bg: 'primary.500', color: 'white' }}
       >
         <Icon as={AiOutlineLink} fontSize={20} />
