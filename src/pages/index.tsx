@@ -13,8 +13,10 @@ const Home: NextPage = () => {
       <Head>
         <title>QR Code - Easy share</title>
       </Head>
-      <VStack>
-        <Heading color="primary.500">Q</Heading>
+      <VStack spacing="1rem">
+        <Heading color="primary.500" as="h1">
+          Q
+        </Heading>
         <OptionsBar />
       </VStack>
       <Form />
