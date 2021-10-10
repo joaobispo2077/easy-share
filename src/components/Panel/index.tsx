@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
+import dynamic from 'next/dynamic';
 import QRCode from 'qrcode.react';
 import {
   Flex,
@@ -17,7 +18,26 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { AiOutlineDownload } from 'react-icons/ai';
+
 export const Panel = () => {
+  const qrCodeRef = useRef<HTMLDivElement>(null);
+
+  const downloadAsPng = async () => {
+    await import('react-component-export-image').then((Exporter) =>
+      Exporter.exportComponentAsPNG(qrCodeRef, {
+        fileName: 'qr-code',
+      }),
+    );
+  };
+
+  const downloadAsJpg = async () => {
+    await import('react-component-export-image').then((Exporter) =>
+      Exporter.exportComponentAsJPEG(qrCodeRef, {
+        fileName: 'qr-code',
+      }),
+    );
+  };
+
   return (
     <Flex
       flex="1"
@@ -28,7 +48,7 @@ export const Panel = () => {
       alignItems="center"
       overflow="hidden"
     >
-      <Flex>
+      <div ref={qrCodeRef}>
         <QRCode
           value="http://facebook.github.io/react/"
           bgColor="#00298A"
@@ -36,7 +56,7 @@ export const Panel = () => {
           renderAs="svg"
           level="Q"
         />
-      </Flex>
+      </div>
       <Flex w="100%" mt="2rem">
         <Accordion allowToggle w="100%">
           <VStack spacing="1rem" w="100%">
@@ -123,6 +143,7 @@ export const Panel = () => {
             rounded="3xl"
             leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
             padding="1.5rem"
+            onClick={() => downloadAsJpg()}
           >
             <Text fontWeight="400">JPEG</Text>
           </Button>
@@ -132,8 +153,9 @@ export const Panel = () => {
             rounded="3xl"
             leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
             padding="1.5rem"
+            onClick={() => downloadAsPng()}
           >
-            <Text fontWeight="400">SVG/EPS</Text>
+            <Text fontWeight="400">PNG</Text>
           </Button>
         </ButtonGroup>
       </Flex>
