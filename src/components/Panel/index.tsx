@@ -1,6 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
-import dynamic from 'next/dynamic';
 import QRCode from 'qrcode.react';
 import {
   Flex,
@@ -19,8 +18,12 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineDownload } from 'react-icons/ai';
 
+type QRCodeDetailLevels = 'L' | 'M' | 'Q' | 'H';
 export const Panel = () => {
   const qrCodeRef = useRef<HTMLDivElement>(null);
+  const qrCodeDetailLevels: QRCodeDetailLevels[] = ['L', 'M', 'Q', 'H'];
+
+  const [detailLevel, setDetailLevel] = useState<QRCodeDetailLevels>('Q');
 
   const downloadAsPng = async () => {
     await import('react-component-export-image').then((Exporter) =>
@@ -54,7 +57,7 @@ export const Panel = () => {
           bgColor="#00298A"
           fgColor="#FFFFFF"
           renderAs="svg"
-          level="Q"
+          level={detailLevel}
         />
       </div>
       <Flex w="100%" mt="2rem">
@@ -76,23 +79,18 @@ export const Panel = () => {
               </Text>
               <AccordionPanel pb={4}>
                 <ButtonGroup color="white" spacing="1rem" width="100%">
-                  <Button
-                    bgColor="primary.500"
-                    colorScheme="blue"
-                    rounded="lg"
-                    isActive={true}
-                  >
-                    L
-                  </Button>
-                  <Button bgColor="primary.500" colorScheme="blue" rounded="lg">
-                    M
-                  </Button>
-                  <Button bgColor="primary.500" colorScheme="blue" rounded="lg">
-                    Q
-                  </Button>
-                  <Button bgColor="primary.500" colorScheme="blue" rounded="lg">
-                    H
-                  </Button>
+                  {qrCodeDetailLevels.map((level) => (
+                    <Button
+                      key={level}
+                      bgColor="primary.500"
+                      colorScheme="green"
+                      rounded="lg"
+                      isActive={detailLevel === level}
+                      onClick={() => setDetailLevel(level)}
+                    >
+                      {level}
+                    </Button>
+                  ))}
                 </ButtonGroup>
               </AccordionPanel>
             </AccordionItem>
