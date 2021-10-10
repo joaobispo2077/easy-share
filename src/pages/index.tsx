@@ -9,7 +9,13 @@ import { Panel } from '../components/Panel';
 
 const Home: NextPage = () => {
   return (
-    <Flex w="100vw" h="100vh" bgColor="gray.200" padding="3.5rem">
+    <Flex
+      w="100vw"
+      h="100vh"
+      bgColor="gray.200"
+      padding="3.5rem"
+      spacing="1rem"
+    >
       <Head>
         <title>QR Code - Easy share</title>
       </Head>
