@@ -14,11 +14,13 @@ import { FiRefreshCcw } from 'react-icons/fi';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useOptionsBar } from '../../hooks/useOptionsBar';
+import { useQRCode } from '../../hooks/useQRCode';
 type Inputs = {
   url: string;
 };
 
 export const Form = () => {
+  const { setQRCode, isQRCodeLoading, setIsQRCodeLoading } = useQRCode();
   const { selectedOptionBar } = useOptionsBar();
 
   const {
@@ -26,7 +28,14 @@ export const Form = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsQRCodeLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setQRCode(data.url);
+    setIsQRCodeLoading(false);
+  };
 
   const getinputDataByOptionBar = (optionBar: string) => {
     switch (optionBar) {
@@ -94,6 +103,7 @@ export const Form = () => {
         <Button
           type="submit"
           colorScheme="green"
+          isLoading={isQRCodeLoading}
           leftIcon={<Icon as={FiRefreshCcw} />}
         >
           Criar QR Code
