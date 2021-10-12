@@ -13,17 +13,43 @@ import {
 import { FiRefreshCcw } from 'react-icons/fi';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { useOptionsBar } from '../../hooks/useOptionsBar';
 type Inputs = {
   url: string;
 };
 
 export const Form = () => {
+  const { selectedOptionBar } = useOptionsBar();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const getinputDataByOptionBar = (optionBar: string) => {
+    switch (optionBar) {
+      case 'url':
+        return {
+          name: 'url',
+          type: 'url',
+          placeholder: 'Insira o link aqui...',
+        };
+      case 'text':
+        return {
+          name: 'text',
+          type: 'text',
+          placeholder: 'Insira o texto aqui...',
+        };
+      default:
+        return {
+          name: 'url',
+          type: 'url',
+          placeholder: 'Insira o link aqui...',
+        };
+    }
+  };
 
   return (
     <Flex
@@ -39,16 +65,18 @@ export const Form = () => {
       <FormControl isInvalid={!!errors.url}>
         <VStack align="flex-start">
           <Input
-            type="url"
+            type={getinputDataByOptionBar(selectedOptionBar).type}
             w="100%"
             colorScheme="yellow"
-            placeholder="Insira o link aqui..."
+            placeholder={getinputDataByOptionBar(selectedOptionBar).placeholder}
             _placeholder={{
               color: 'primary.500',
               fontSize: '1.2rem',
               fontWeight: 'bold',
             }}
-            {...register('url', { required: true })}
+            {...register(getinputDataByOptionBar(selectedOptionBar).name, {
+              required: true,
+            })}
             required
           />
           {!!errors.url && (
