@@ -27,6 +27,7 @@ const Home: NextPage = () => {
         spacing="1rem"
       >
         <Head>
+          <link rel="shortcut icon" href="/qrcode.png" type="image/png" />
           <title>QR Code - Easy share</title>
         </Head>
         <VStack spacing="1rem">
