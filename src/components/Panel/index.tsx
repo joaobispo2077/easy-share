@@ -18,8 +18,12 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineDownload } from 'react-icons/ai';
 
+import { useQRCode } from '../../hooks/useQRCode';
+
 type QRCodeDetailLevels = 'L' | 'M' | 'Q' | 'H';
 export const Panel = () => {
+  const { qrCode } = useQRCode();
+
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const qrCodeDetailLevels: QRCodeDetailLevels[] = ['L', 'M', 'Q', 'H'];
 
@@ -56,7 +60,7 @@ export const Panel = () => {
       <Flex ref={qrCodeRef} bgColor="white" p="1rem">
         {/* <img src={serverSideQRCode} /> */}
         <QRCode
-          value="https://www.twitter.com"
+          value={qrCode}
           bgColor={qrCodeBackground}
           fgColor={qrCodeForeground}
           renderAs="svg"
