@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Button, Icon, VStack } from '@chakra-ui/react';
 import { AiOutlineLink } from 'react-icons/ai';
@@ -9,7 +9,7 @@ import {
   qrCodeOptions,
   QRCodeOptions,
 } from '../../contexts/OptionsBarContext/OptionsBarProvider';
-import { OptionsBarContext } from '../../contexts/OptionsBarContext';
+import { useOptionsBar } from '../../hooks/useOptionsBar';
 
 type OptionsBarIcons = { [key in QRCodeOptions]: IconType };
 
@@ -19,8 +19,7 @@ const iconComponentByOption: OptionsBarIcons = {
 };
 
 export const OptionsBar = () => {
-  const { selectedOptionBar, setSelectedOptionBar } =
-    useContext(OptionsBarContext);
+  const { selectedOptionBar, setSelectedOptionBar } = useOptionsBar();
 
   return (
     <VStack
