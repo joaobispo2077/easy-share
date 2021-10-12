@@ -20,13 +20,13 @@ export const OptionsBar = () => {
           bg: 'primary.500',
           color: 'white',
         }}
-        _hover={{ bg: 'primary.500', color: 'white' }}
+        _hover={{ bg: 'primary.400', color: 'white' }}
       >
         <Icon as={AiOutlineLink} fontSize={20} />
       </Button>
       <Button
         borderRadius="5rem"
-        _hover={{ bg: 'primary.500', color: 'white' }}
+        _hover={{ bg: 'primary.400', color: 'white' }}
       >
         <Icon as={FiType} fontSize={20} />
       </Button>
