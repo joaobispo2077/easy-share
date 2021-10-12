@@ -15,12 +15,12 @@ import {
   ButtonGroup,
   Input,
   Icon,
-  Spinner,
   Skeleton,
 } from '@chakra-ui/react';
 import { AiOutlineDownload } from 'react-icons/ai';
 
 import { useQRCode } from '../../hooks/useQRCode';
+import { QRCodePanelSkeleton } from '../Skeletons/QRCodePanelSkeleton';
 
 type QRCodeDetailLevels = 'L' | 'M' | 'Q' | 'H';
 export const Panel = () => {
@@ -60,23 +60,7 @@ export const Panel = () => {
       overflow="hidden"
     >
       {isQRCodeLoading ? (
-        <>
-          <Skeleton height="10rem" width="10rem" />
-          <Skeleton height="2rem" w="100%" mt="2rem" />
-          <Skeleton height="2rem" w="100%" mt="1rem" />
-          <Skeleton
-            isLoaded
-            w="100%"
-            display="flex"
-            justifyContent="space-evenly"
-            direction="row"
-            spacing="1rem"
-            mt="2rem"
-          >
-            <Skeleton height="2.5rem" w="7rem" />
-            <Skeleton height="2.5rem" w="7rem" />
-          </Skeleton>
-        </>
+        <QRCodePanelSkeleton />
       ) : (
         <>
           <Flex ref={qrCodeRef} bgColor="white" p="1rem">
