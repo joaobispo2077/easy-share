@@ -67,7 +67,7 @@ export const Form = () => {
           <Input
             type={getinputDataByOptionBar(selectedOptionBar).type}
             w="100%"
-            colorScheme="yellow"
+            variant="filled"
             placeholder={getinputDataByOptionBar(selectedOptionBar).placeholder}
             _placeholder={{
               color: 'primary.500',
