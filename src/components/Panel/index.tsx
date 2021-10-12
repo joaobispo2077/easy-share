@@ -23,9 +23,9 @@ export const Panel = () => {
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const qrCodeDetailLevels: QRCodeDetailLevels[] = ['L', 'M', 'Q', 'H'];
 
-  const [detailLevel, setDetailLevel] = useState<QRCodeDetailLevels>('Q');
-  const [qrCodeBackground, setQrCodeBackground] = useState<string>('#00298A');
-  const [qrCodeForeground, setQrCodeForeground] = useState<string>('#FFFFFF');
+  const [detailLevel, setDetailLevel] = useState<QRCodeDetailLevels>('M');
+  const [qrCodeBackground, setQrCodeBackground] = useState<string>('#FFFFFF');
+  const [qrCodeForeground, setQrCodeForeground] = useState<string>('#000000');
 
   const downloadAsPng = async () => {
     await import('react-component-export-image').then((Exporter) =>
@@ -53,15 +53,21 @@ export const Panel = () => {
       alignItems="center"
       overflow="hidden"
     >
-      <div ref={qrCodeRef}>
+      <Flex ref={qrCodeRef} bgColor="white" p="1rem">
+        {/* <img src={serverSideQRCode} /> */}
         <QRCode
-          value="http://facebook.github.io/react/"
+          value="https://www.twitter.com"
           bgColor={qrCodeBackground}
           fgColor={qrCodeForeground}
           renderAs="svg"
           level={detailLevel}
+          style={{
+            display: 'block',
+            height: 'auto',
+            width: '100%',
+          }}
         />
-      </div>
+      </Flex>
       <Flex w="100%" mt="2rem">
         <Accordion allowToggle w="100%">
           <VStack spacing="1rem" w="100%">
