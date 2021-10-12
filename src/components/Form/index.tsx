@@ -74,9 +74,12 @@ export const Form = () => {
               fontSize: '1.2rem',
               fontWeight: 'bold',
             }}
-            {...register(getinputDataByOptionBar(selectedOptionBar).name, {
-              required: true,
-            })}
+            {...register(
+              getinputDataByOptionBar(selectedOptionBar).name as keyof Inputs,
+              {
+                required: true,
+              },
+            )}
             required
           />
           {!!errors.url && (
