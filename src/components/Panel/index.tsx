@@ -121,7 +121,9 @@ export const Panel = () => {
                         type="color"
                         placeholder="Background"
                         value={qrCodeBackground}
-                        onChange={(e) => setQrCodeBackground(e.target.value)}
+                        onChange={(event) =>
+                          setQrCodeBackground(event.target.value)
+                        }
                         border="none"
                       />
                     </Text>
@@ -136,7 +138,9 @@ export const Panel = () => {
                         type="color"
                         placeholder="Linhas"
                         value={qrCodeForeground}
-                        onChange={(e) => setQrCodeForeground(e.target.value)}
+                        onChange={(event) =>
+                          setQrCodeForeground(event.target.value)
+                        }
                         border="none"
                       />
                     </Text>
