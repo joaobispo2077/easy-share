@@ -15,6 +15,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useOptionsBar } from '../../hooks/useOptionsBar';
 import { useQRCode } from '../../hooks/useQRCode';
+
 type Inputs = {
   url: string;
 };
@@ -37,28 +38,28 @@ export const Form = () => {
     setIsQRCodeLoading(false);
   };
 
-  const getinputDataByOptionBar = (optionBar: string) => {
-    switch (optionBar) {
-      case 'url':
-        return {
-          name: 'url',
-          type: 'url',
-          placeholder: 'Insira o link aqui...',
-        };
-      case 'text':
-        return {
-          name: 'text',
-          type: 'text',
-          placeholder: 'Insira o texto aqui...',
-        };
-      default:
-        return {
-          name: 'url',
-          type: 'url',
-          placeholder: 'Insira o link aqui...',
-        };
-    }
+  const getFormDataByOptionsBar = (optionBar: string) => {
+    const formData = {
+      url: {
+        name: 'url',
+        type: 'url',
+        placeholder: 'Insira o link aqui...',
+        text: 'link',
+      },
+      text: {
+        name: 'text',
+        type: 'text',
+        placeholder: 'Insira o texto aqui...',
+        text: 'texto',
+      },
+    };
+
+    const data = formData[optionBar as keyof typeof formData] ?? formData.text;
+
+    return data;
   };
+
+  const selectedForm = getFormDataByOptionsBar(selectedOptionBar);
 
   return (
     <Flex
@@ -74,28 +75,26 @@ export const Form = () => {
       <FormControl isInvalid={!!errors.url}>
         <VStack align="flex-start">
           <Input
-            type={getinputDataByOptionBar(selectedOptionBar).type}
+            type={selectedForm.type}
             w="100%"
             variant="filled"
-            placeholder={getinputDataByOptionBar(selectedOptionBar).placeholder}
+            boxShadow="sm"
+            placeholder={selectedForm.placeholder}
             _placeholder={{
               color: 'primary.500',
               fontSize: '1.2rem',
               fontWeight: 'bold',
             }}
-            {...register(
-              getinputDataByOptionBar(selectedOptionBar).name as keyof Inputs,
-              {
-                required: true,
-              },
-            )}
+            {...register(selectedForm.name as keyof Inputs, {
+              required: true,
+            })}
             required
           />
           {!!errors.url && (
             <FormErrorMessage>{errors.url.message}</FormErrorMessage>
           )}
           <Text fontSize="sm" color="gray.500">
-            Gere seu QR Code e compartilhe facilmente o seu link.
+            Gere seu QR Code e compartilhe facilmente o seu {selectedForm.text}.
           </Text>
         </VStack>
       </FormControl>
