@@ -15,6 +15,8 @@ import {
   ButtonGroup,
   Input,
   Icon,
+  Spinner,
+  Skeleton,
 } from '@chakra-ui/react';
 import { AiOutlineDownload } from 'react-icons/ai';
 
@@ -22,7 +24,7 @@ import { useQRCode } from '../../hooks/useQRCode';
 
 type QRCodeDetailLevels = 'L' | 'M' | 'Q' | 'H';
 export const Panel = () => {
-  const { qrCode } = useQRCode();
+  const { qrCode, isQRCodeLoading } = useQRCode();
 
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const qrCodeDetailLevels: QRCodeDetailLevels[] = ['L', 'M', 'Q', 'H'];
@@ -57,134 +59,166 @@ export const Panel = () => {
       alignItems="center"
       overflow="hidden"
     >
-      <Flex ref={qrCodeRef} bgColor="white" p="1rem">
-        {/* <img src={serverSideQRCode} /> */}
-        <QRCode
-          value={qrCode}
-          bgColor={qrCodeBackground}
-          fgColor={qrCodeForeground}
-          renderAs="svg"
-          level={detailLevel}
-          style={{
-            display: 'block',
-            height: 'auto',
-            width: '100%',
-          }}
-        />
-      </Flex>
-      <Flex w="100%" mt="2rem">
-        <Accordion allowToggle w="100%">
-          <VStack spacing="1rem" w="100%">
-            <AccordionItem
-              border="none"
-              w="100%"
-              bgColor="primary.400"
-              rounded="lg"
-            >
-              <Text as="h2" color="white">
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    Nível de detalhe
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </Text>
-              <AccordionPanel pb={4}>
-                <ButtonGroup color="white" spacing="1rem" width="100%">
-                  {qrCodeDetailLevels.map((level) => (
-                    <Button
-                      key={level}
-                      bgColor="primary.500"
-                      colorScheme="green"
-                      rounded="lg"
-                      isActive={detailLevel === level}
-                      onClick={() => setDetailLevel(level)}
-                    >
-                      {level}
-                    </Button>
-                  ))}
-                </ButtonGroup>
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem
-              border="none"
-              w="100%"
-              bgColor="primary.400"
-              rounded="lg"
-            >
-              <Text as="h2" color="white">
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    Cores
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </Text>
-              <AccordionPanel pb={4} color="white">
-                <VStack spacing="1rem" w="100%">
-                  <Box w="100%" bgColor="primary.500" rounded="lg" p=".25rem">
-                    <Text as="label">
-                      Background:
-                      <Input
-                        id="qr-code-background"
-                        name="qr-code-background"
-                        type="color"
-                        placeholder="Background"
-                        value={qrCodeBackground}
-                        onChange={(event) =>
-                          setQrCodeBackground(event.target.value)
-                        }
-                        border="none"
-                      />
-                    </Text>
-                  </Box>
+      {isQRCodeLoading ? (
+        <>
+          <Skeleton height="10rem" width="10rem" />
+          <Skeleton height="2rem" w="100%" mt="2rem" />
+          <Skeleton height="2rem" w="100%" mt="1rem" />
+          <Skeleton
+            isLoaded
+            w="100%"
+            display="flex"
+            justifyContent="space-evenly"
+            direction="row"
+            spacing="1rem"
+            mt="2rem"
+          >
+            <Skeleton height="2.5rem" w="7rem" />
+            <Skeleton height="2.5rem" w="7rem" />
+          </Skeleton>
+        </>
+      ) : (
+        <>
+          <Flex ref={qrCodeRef} bgColor="white" p="1rem">
+            {/* <img src={serverSideQRCode} /> */}
+            <QRCode
+              value={qrCode}
+              bgColor={qrCodeBackground}
+              fgColor={qrCodeForeground}
+              renderAs="svg"
+              level={detailLevel}
+              style={{
+                display: 'block',
+                height: 'auto',
+                width: '100%',
+              }}
+            />
+          </Flex>
+          <Flex w="100%" mt="2rem">
+            <Accordion allowToggle w="100%">
+              <VStack spacing="1rem" w="100%">
+                <AccordionItem
+                  border="none"
+                  w="100%"
+                  bgColor="primary.400"
+                  rounded="lg"
+                >
+                  <Text as="h2" color="white">
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left">
+                        Nível de detalhe
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </Text>
+                  <AccordionPanel pb={4}>
+                    <ButtonGroup color="white" spacing="1rem" width="100%">
+                      {qrCodeDetailLevels.map((level) => (
+                        <Button
+                          key={level}
+                          bgColor="primary.500"
+                          colorScheme="green"
+                          rounded="lg"
+                          isActive={detailLevel === level}
+                          onClick={() => setDetailLevel(level)}
+                        >
+                          {level}
+                        </Button>
+                      ))}
+                    </ButtonGroup>
+                  </AccordionPanel>
+                </AccordionItem>
+                <AccordionItem
+                  border="none"
+                  w="100%"
+                  bgColor="primary.400"
+                  rounded="lg"
+                >
+                  <Text as="h2" color="white">
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left">
+                        Cores
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </Text>
+                  <AccordionPanel pb={4} color="white">
+                    <VStack spacing="1rem" w="100%">
+                      <Box
+                        w="100%"
+                        bgColor="primary.500"
+                        rounded="lg"
+                        p=".25rem"
+                      >
+                        <Text as="label">
+                          Background:
+                          <Input
+                            id="qr-code-background"
+                            name="qr-code-background"
+                            type="color"
+                            placeholder="Background"
+                            value={qrCodeBackground}
+                            onChange={(event) =>
+                              setQrCodeBackground(event.target.value)
+                            }
+                            border="none"
+                          />
+                        </Text>
+                      </Box>
 
-                  <Box w="100%" bgColor="primary.500" rounded="lg" p=".25rem">
-                    <Text as="label">
-                      Linhas:
-                      <Input
-                        id="qr-code-foreground"
-                        name="qr-code-foreground"
-                        type="color"
-                        placeholder="Linhas"
-                        value={qrCodeForeground}
-                        onChange={(event) =>
-                          setQrCodeForeground(event.target.value)
-                        }
-                        border="none"
-                      />
-                    </Text>
-                  </Box>
-                </VStack>
-              </AccordionPanel>
-            </AccordionItem>
-          </VStack>
-        </Accordion>
-      </Flex>
-      <Flex mt="2rem">
-        <ButtonGroup spacing="1rem" w="100%">
-          <Button
-            size="lg"
-            colorScheme="green"
-            rounded="3xl"
-            leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
-            padding="1.5rem"
-            onClick={downloadAsJpg}
-          >
-            <Text fontWeight="400">JPEG</Text>
-          </Button>
-          <Button
-            size="lg"
-            colorScheme="green"
-            rounded="3xl"
-            leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
-            padding="1.5rem"
-            onClick={downloadAsPng}
-          >
-            <Text fontWeight="400">PNG</Text>
-          </Button>
-        </ButtonGroup>
-      </Flex>
+                      <Box
+                        w="100%"
+                        bgColor="primary.500"
+                        rounded="lg"
+                        p=".25rem"
+                      >
+                        <Text as="label">
+                          Linhas:
+                          <Input
+                            id="qr-code-foreground"
+                            name="qr-code-foreground"
+                            type="color"
+                            placeholder="Linhas"
+                            value={qrCodeForeground}
+                            onChange={(event) =>
+                              setQrCodeForeground(event.target.value)
+                            }
+                            border="none"
+                          />
+                        </Text>
+                      </Box>
+                    </VStack>
+                  </AccordionPanel>
+                </AccordionItem>
+              </VStack>
+            </Accordion>
+          </Flex>
+          <Flex mt="2rem">
+            <ButtonGroup spacing="1rem" w="100%">
+              <Button
+                size="lg"
+                colorScheme="green"
+                rounded="3xl"
+                leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
+                padding="1.5rem"
+                onClick={downloadAsJpg}
+              >
+                <Text fontWeight="400">JPEG</Text>
+              </Button>
+              <Button
+                size="lg"
+                colorScheme="green"
+                rounded="3xl"
+                leftIcon={<Icon as={AiOutlineDownload} fontSize={24} />}
+                padding="1.5rem"
+                onClick={downloadAsPng}
+              >
+                <Text fontWeight="400">PNG</Text>
+              </Button>
+            </ButtonGroup>
+          </Flex>
+        </>
+      )}
     </Flex>
   );
 };
