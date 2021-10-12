@@ -10,23 +10,34 @@ import { Panel } from '../components/Panel';
 const Home: NextPage = () => {
   return (
     <Flex
-      w="100vw"
-      h="100vh"
+      as="main"
+      mx="auto"
+      w="100%"
+      h="100%"
       bgColor="gray.200"
-      padding="3.5rem"
-      spacing="1rem"
+      direction="column"
+      align="center"
     >
-      <Head>
-        <title>QR Code - Easy share</title>
-      </Head>
-      <VStack spacing="1rem">
-        <Heading color="primary.500" as="h1">
-          Q
-        </Heading>
-        <OptionsBar />
-      </VStack>
-      <Form />
-      <Panel />
+      <Flex
+        w="100vw"
+        h="100vh"
+        maxW="1440px"
+        bgColor="gray.200"
+        padding="3.5rem"
+        spacing="1rem"
+      >
+        <Head>
+          <title>QR Code - Easy share</title>
+        </Head>
+        <VStack spacing="1rem">
+          <Heading color="primary.500" as="h1">
+            Q
+          </Heading>
+          <OptionsBar />
+        </VStack>
+        <Form />
+        <Panel />
+      </Flex>
     </Flex>
   );
 };
