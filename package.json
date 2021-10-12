@@ -1,6 +1,6 @@
 {
   "name": "easy-share",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "release": "yarn semantic-release --no-ci",
@@ -20,14 +20,21 @@
     "@emotion/styled": "11",
     "framer-motion": "4",
     "next": "11.1.2",
+    "qrcode": "^1.4.4",
+    "qrcode.react": "^1.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-component-export-image": "^1.0.6",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.17.2",
+    "react-icons": "^4.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
+    "@types/qrcode": "^1.4.1",
+    "@types/qrcode.react": "^1.0.2",
     "@types/react": "17.0.20",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
